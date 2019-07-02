@@ -1,7 +1,7 @@
 {
   "name": "dynamic-parsers",
   "version": "1.0.0",
-  "description": "",
+  "description": "Dynamic Parsers - Strings Files Generator and Web Crawler",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
