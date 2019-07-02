@@ -2,7 +2,12 @@
   "name": "dynamic-parsers",
   "version": "1.0.0",
   "description": "Dynamic Parsers - Strings Files Generator and Web Crawler",
+  "homepage": "https://github.com/surgeharb/dynamic-parsers",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/surgeharb/dynamic-parsers.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
