@@ -1,0 +1,9 @@
+src/*
+test/*
+node_modules/*
+
+.history/*
+.DS_Store
+
+tsconfig.json
+gulpfile.js

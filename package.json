@@ -9,8 +9,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/jszip": "^3.1.6",
+    "@types/node": "^12.0.10",
     "gulp": "^4.0.2",
     "gulp-typescript": "^5.0.1",
     "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "jszip": "^3.2.1"
   }
 }
