@@ -5,7 +5,7 @@ export type Platform = 'WEB' | 'ANDROID' | 'IOS';
 export interface Transalations {
   readonly translations: { [key: string]: string };
   readonly translatable?: boolean;
-  readonly targets: Platform[];
+  readonly platforms: Platform[];
   readonly key: string;
 }
 
@@ -34,7 +34,7 @@ export class StringsGenerator {
   }
 
   public generate(targetPlatform: Platform) {
-    const translationsTarget = (t: Transalations) => t.targets.includes(targetPlatform);
+    const translationsTarget = (t: Transalations) => t.platforms.includes(targetPlatform);
     const translations = this.transalations.filter(translationsTarget);
 
     switch (targetPlatform) {

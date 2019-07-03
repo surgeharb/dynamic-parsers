@@ -3,9 +3,9 @@
 ### Define Translations Data Structure
 ```js
 const translations = [
-  { key: 'HELLO', translations: { en: 'Hello English', fr: 'Hello French' }, targets: ['ANDROID', 'IOS', 'WEB'] },
-  { key: 'ERROR', translations: { en: 'Error English', fr: 'Error French' }, targets: ['ANDROID', 'IOS', 'WEB'] },
-  { key: 'EMAIL_INUSE', translations: { en: 'Email in use English', fr: 'Email in use French' }, targets: ['ANDROID', 'IOS'] },
+  { key: 'HELLO', translations: { en: 'Hello English', fr: 'Hello French' }, platforms: ['ANDROID', 'IOS', 'WEB'] },
+  { key: 'ERROR', translations: { en: 'Error English', fr: 'Error French' }, platforms: ['ANDROID', 'IOS', 'WEB'] },
+  { key: 'EMAIL_INUSE', translations: { en: 'Email in use English', fr: 'Email in use French' }, platforms: ['ANDROID', 'IOS'] },
 ];
 ```
 
@@ -68,7 +68,7 @@ export type Platform = 'WEB' | 'ANDROID' | 'IOS';
 export interface Transalations {
   readonly translations: { [key: string]: string }; // e.g. { en: 'Good Morning', fr: 'Bonjour' }
   readonly translatable?: boolean;
-  readonly targets: Platform[];
+  readonly platforms: Platform[];
   readonly key: string;
 }
 ```
