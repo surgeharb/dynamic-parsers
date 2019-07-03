@@ -1,6 +1,6 @@
 import * as JSZip from 'jszip';
 
-export type Platform = 'WEB' | 'ANDROID' | 'IOS';
+export type Platform = 'WEB' | 'ANDROID' | 'IOS' | 'API';
 
 export interface Transalations {
   readonly translations: { [key: string]: string };
@@ -27,7 +27,8 @@ export class StringsGenerator {
       const translatable = translation.translatable;
       const undefinedTranslatable = translatable === undefined;
 
-      return { ...translation,
+      return {
+        ...translation,
         translatable: undefinedTranslatable ? true : !!translation.translatable,
       };
     });
@@ -45,6 +46,7 @@ export class StringsGenerator {
         return this.generateXmlStrings(translations);
 
       case 'WEB':
+      case 'API':
       default: // defaults to 'WEB'
         return this.generateJsonStrings(translations);
     }
@@ -72,6 +74,7 @@ export class StringsGenerator {
         break;
 
       case 'WEB':
+      case 'API':
       default:
         files.forEach(data => zip.file('strings.json', data));
         break;
