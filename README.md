@@ -20,6 +20,8 @@ const translations = [
 
 ### Setup Generator
 ```js
+const { StringsGenerator } = require('dynamic-parsers');
+
 const generator = new StringsGenerator(translations, ['en', 'fr']);
 ```
 

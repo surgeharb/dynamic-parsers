@@ -1,0 +1,1 @@
+export { StringsGenerator } from "./strings-files";
