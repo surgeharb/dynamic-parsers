@@ -1,3 +1,12 @@
+### Installation
+
+```bash
+npm install dynamic-parsers --save
+```
+
+<br>
+
+
 # Multi-Platform Strings Files Manager
 
 ### Define Translations Data Structure
