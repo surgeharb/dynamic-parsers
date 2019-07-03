@@ -19,7 +19,7 @@ const generator = new StringsGenerator(translations, ['en', 'fr']);
 // async/await
 (async() => {
 
-  const platform = 'ANDROID'; // 'IOS' || 'ANDROID' || 'WEB'
+  const platform = 'ANDROID'; // 'IOS' || 'ANDROID' || 'WEB' || 'API'
   const zipFile = await generator.generateZip(platform);
   fs.writeFileSync('file.zip', zipFile);
   
@@ -29,7 +29,7 @@ const generator = new StringsGenerator(translations, ['en', 'fr']);
 // Promise
 generator.generateZip(platform).then(zipFile => {
 
-  const platform = 'ANDROID'; // 'IOS' || 'ANDROID' || 'WEB'
+  const platform = 'ANDROID'; // 'IOS' || 'ANDROID' || 'WEB' || 'API'
   fs.writeFileSync('file.zip', zipFile);
 
 });
@@ -39,7 +39,7 @@ generator.generateZip(platform).then(zipFile => {
 ```js
 app.get('/generator', async (req, res) => {
 
-  const platform = 'ANDROID'; // 'IOS' || 'ANDROID' || 'WEB'
+  const platform = 'ANDROID'; // 'IOS' || 'ANDROID' || 'WEB' || 'API'
   const zipFile = await generator.generateZip(platform);
 
   res.writeHead(200, {
@@ -63,7 +63,7 @@ app.get('/generator', async (req, res) => {
 ### Translations Interface
 
 ```js
-export type Platform = 'WEB' | 'ANDROID' | 'IOS';
+export type Platform = 'WEB' | 'ANDROID' | 'IOS' | 'API';
 
 export interface Transalations {
   readonly translations: { [key: string]: string }; // e.g. { en: 'Good Morning', fr: 'Bonjour' }
