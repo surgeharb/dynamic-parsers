@@ -1,6 +1,11 @@
 import * as JSZip from 'jszip';
 
-export type Platform = 'WEB' | 'ANDROID' | 'IOS' | 'API';
+export enum Platform {
+  WEB = 0,
+  IOS = 1,
+  ANDROID = 2,
+  API = 3,
+}
 
 export interface Transalations {
   readonly translations: { [key: string]: string };
@@ -39,21 +44,21 @@ export class StringsGenerator {
     const translations = this.transalations.filter(translationsTarget);
 
     switch (targetPlatform) {
-      case 'IOS':
+      case Platform.IOS:
         return this.generateIosStrings(translations);
 
-      case 'ANDROID':
+      case Platform.ANDROID:
         return this.generateXmlStrings(translations);
 
-      case 'WEB':
-      case 'API':
-      default: // defaults to 'WEB'
+      case Platform.WEB:
+      case Platform.API:
+      default: // defaults to JSON files
         return this.generateJsonStrings(translations);
     }
   }
 
   public generateZip(targetPlatform: Platform) {
-    const isIos = (targetPlatform === 'IOS');
+    const isIos = (targetPlatform === Platform.IOS);
     const files = this.generate(targetPlatform);
     const languages = [...this.languages];
     const zip = new JSZip();
@@ -65,16 +70,16 @@ export class StringsGenerator {
     }
 
     switch (targetPlatform) {
-      case 'IOS':
-      case 'ANDROID':
+      case Platform.IOS:
+      case Platform.ANDROID:
         files.forEach((data, i) => {
           folders[i] = zip.folder(this.getFolderName(targetPlatform, languages, i));
           folders[i].file(isIos ? 'Localizable.strings' : 'strings.xml', data);
         });
         break;
 
-      case 'WEB':
-      case 'API':
+      case Platform.WEB:
+      case Platform.API:
       default:
         files.forEach(data => zip.file('strings.json', data));
         break;
@@ -85,7 +90,7 @@ export class StringsGenerator {
 
   private getFolderName(targetPlatform: Platform, languages: string[], index: number) {
     const lang = languages[index];
-    const isIos = targetPlatform === 'IOS';
+    const isIos = (targetPlatform === Platform.IOS);
 
     if (index) {
       return isIos ? `${lang}.lproj` : `values-${lang}`;
