@@ -142,7 +142,7 @@ export class StringsGenerator {
   private generateIosStrings(transalations: Transalations[]) {
     return this.languages.map(lang =>
       transalations.map(({ key, translations }) =>
-        `"${key}" = "${translations[lang]}"\n`
+        `"${key}" = "${translations[lang]}";\n`
       ).join('').slice(0, -1)
     )
   }
