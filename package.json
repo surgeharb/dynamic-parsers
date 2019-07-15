@@ -1,6 +1,6 @@
 {
   "name": "dynamic-parsers",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Dynamic Parsers - Strings Files Generator and Web Crawler",
   "homepage": "https://github.com/surgeharb",
   "main": "build/index.js",
