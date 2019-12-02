@@ -10,7 +10,7 @@ npm install dynamic-parsers --save
 # Multi-Platform Strings Files Manager
 
 ### Define Translations Data Structure
-```js
+```ts
 // Platform is an exported enum in our StringsGenerator Class:
 // export enum Platform { WEB = 0, IOS = 1, ANDROID = 2, API = 3 }
 
@@ -22,14 +22,14 @@ const translations = [
 ```
 
 ### Setup Generator
-```js
+```ts
 const { StringsGenerator } = require('dynamic-parsers');
 
 const generator = new StringsGenerator(translations, ['en', 'fr']);
 ```
 
 ### Option 1 - Write to a Local File
-```js
+```ts
 // async/await
 (async() => {
 
@@ -50,7 +50,7 @@ generator.generateZip(platform).then(zipFile => {
 ```
 
 ### Option 2 - Serve in API using a Simple Express Server
-```js
+```ts
 app.get('/generator', async (req, res) => {
 
   const platform = 0; // = Platform.WEB
@@ -76,7 +76,7 @@ app.get('/generator', async (req, res) => {
 
 ### Translations Interface
 
-```js
+```ts
 export enum Platform { WEB = 0, IOS = 1, ANDROID = 2, API = 3 }
 
 export interface Transalations {
@@ -91,7 +91,42 @@ export interface Transalations {
 
 # Web Crawler and Scraper
 
-### Keep in touch! Coming Soon!
+```ts
+const crawlerConfig = {
+  url: 'https://www.example.com/search/result?q=macbook',
+  itemSelector: 'ul.products-grid .item',
+  itemDetails: [
+    { key: 'name', selector: '.product-name' },
+    { key: 'sale', selector: '.product-sale .price' },
+    { key: 'price', selector: '.product-details .price' },
+    { key: 'image', selector: '.product-image img', attribute: 'data-src' },
+  ]
+};
+
+(async () => {
+  const data = await WebCrawl(crawlerConfig);
+  console.log("LOG: data", data);
+})();
+```
+
+### Crawler Config Structure
+
+```ts
+// either "html" or "url" is required
+
+export interface ItemDetailsConfig {
+  key: string;
+  selector: string;
+  attribute?: string;
+}
+
+export interface CrawlerConfig {
+  url?: string;
+  html?: string;
+  itemSelector: string;
+  itemDetails: ItemDetailsConfig[];
+}
+```
 
 <br>
 
