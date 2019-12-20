@@ -1,13 +1,13 @@
 import * as fs from 'fs';
-import { StringsGenerator, Transalations, Platform } from '../src/strings-files';
+import { StringsGenerator, Translations, Platform } from '../src/strings-files';
 
-const translations: Transalations[] = [
-  { platforms: [Platform.ANDROID, Platform.IOS], translations: { en: 'Hello English', fr: 'Hello French' }, translatable: true, key: 'HELLO' },
-  { platforms: [Platform.IOS], translations: { en: 'Error in English', fr: 'Error in French' }, translatable: true, key: 'ERROR' },
+const translations: Translations[] = [
+  { platforms: [Platform.ANDROID, Platform.IOS], translations: { en: 'Hello English %d', fr: 'Hello French %d' }, translatable: true, key: 'HELLO' },
+  { platforms: [Platform.ANDROID], translations: { en: 'Error in English', fr: 'Error in French' }, translatable: true, key: 'ERROR' },
   { platforms: [Platform.WEB], translations: { en: 'Email in use English', fr: 'Email in use French' }, translatable: true, key: 'INUSE' },
 ];
 
-const platform = Platform.IOS;
+const platform = Platform.ANDROID;
 
 (async () => {
   const generator = new StringsGenerator(translations, ['en', 'fr']);

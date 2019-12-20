@@ -79,7 +79,7 @@ app.get('/generator', async (req, res) => {
 ```ts
 export enum Platform { WEB = 0, IOS = 1, ANDROID = 2, API = 3 }
 
-export interface Transalations {
+export interface Translations {
   readonly translations: { [key: string]: string }; // e.g. { en: 'Good Morning', fr: 'Bonjour' }
   readonly translatable?: boolean;
   readonly platforms: Platform[]; // e.g. [1, 2, 3]

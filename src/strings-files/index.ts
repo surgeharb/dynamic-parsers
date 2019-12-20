@@ -7,7 +7,7 @@ export enum Platform {
   API = 3,
 }
 
-export interface Transalations {
+export interface Translations {
   readonly translations: { [key: string]: string };
   readonly translatable?: boolean;
   readonly platforms: Platform[];
@@ -20,15 +20,15 @@ const NOT_SAFE_XML =
 export class StringsGenerator {
 
   private languages: string[];
-  private transalations: Transalations[];
+  private translations: Translations[];
 
-  constructor(transalations: Transalations[], languages: string[]) {
-    if (!transalations || !languages) {
+  constructor(translations: Translations[], languages: string[]) {
+    if (!translations || !languages) {
       throw new Error('Translations and Languages must be provided respectively');
     }
 
     this.languages = languages;
-    this.transalations = transalations.map(translation => {
+    this.translations = translations.map(translation => {
       const translatable = translation.translatable;
       const undefinedTranslatable = translatable === undefined;
 
@@ -40,8 +40,8 @@ export class StringsGenerator {
   }
 
   public generate(targetPlatform: Platform) {
-    const translationsTarget = (t: Transalations) => t.platforms.includes(targetPlatform);
-    const translations = this.transalations.filter(translationsTarget);
+    const translationsTarget = (t: Translations) => t.platforms.includes(targetPlatform);
+    const translations = this.translations.filter(translationsTarget);
 
     switch (targetPlatform) {
       case Platform.IOS:
@@ -109,42 +109,37 @@ export class StringsGenerator {
    * @memberof StringsGenerator
    */
   private x(data: string) {
-    return (`${data}`)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/'/g, '&apos;')
-      .replace(/"/g, '&quot;')
-      .replace(NOT_SAFE_XML, '');
+    return (`${data}`).replace(NOT_SAFE_XML, '');
   }
 
-  private generateJsonStrings(transalations: Transalations[]) {
+  private generateJsonStrings(translationsArray: Translations[]) {
     const STRINGS = {};
 
-    transalations.forEach(({ key, translations }) => {
+    translationsArray.forEach(({ key, translations }) => {
       STRINGS[key] = translations;
     });
 
     return [JSON.stringify(STRINGS, null, 2)];
   }
 
-  private generateXmlStrings(transalations: Transalations[]) {
+  private generateXmlStrings(translationsArray: Translations[]) {
     return this.languages.map(lang => {
-      const translations = transalations.map(({ key, translatable, translations }) =>
-        '\n<resources>' + `\n\t<string name="${this.x(key)}" translatable="${translatable}">${this.x(translations[lang])}</string>` + '\n</resources>'
+      const translations = translationsArray.map(({ key, translatable, translations }) =>
+        `\n\t<string name="${this.x(key)}" translatable="${translatable}">${this.x(translations[lang])}</string>`,
       );
 
-      translations.unshift('<?xml version="1.0" encoding="utf-8"?>');
+      translations.unshift('<?xml version="1.0" encoding="utf-8"?>\n<resources>');
+      translations.push('\n</resources>');
       return translations.join('');
     });
   }
 
-  private generateIosStrings(transalations: Transalations[]) {
+  private generateIosStrings(translationsArray: Translations[]) {
     return this.languages.map(lang =>
-      transalations.map(({ key, translations }) =>
+      translationsArray.map(({ key, translations }) =>
         `"${key}" = "${translations[lang]}";\n`
       ).join('').slice(0, -1)
-    )
+    );
   }
 
 }
