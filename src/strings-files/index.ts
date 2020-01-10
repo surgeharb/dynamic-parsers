@@ -109,7 +109,14 @@ export class StringsGenerator {
    * @memberof StringsGenerator
    */
   private x(data: string) {
-    return (`${data}`).replace(NOT_SAFE_XML, '');
+    return (`${data}`)
+      .replace(/\n/gm, '\\n')
+      .replace(/&/g, '\\&amp;')
+      .replace(/</g, '\\&lt;')
+      .replace(/>/g, '\\&gt;')
+      .replace(/'/g, '\\&apos;')
+      .replace(/"/g, '\\&quot;')
+      .replace(NOT_SAFE_XML, '');
   }
 
   private generateJsonStrings(translationsArray: Translations[]) {
